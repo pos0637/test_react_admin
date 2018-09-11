@@ -21,8 +21,16 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
                 test: /\.less$/,
                 use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']
+            },
+            {
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader']
             }
         ]
     },
@@ -38,5 +46,10 @@ module.exports = {
         host: 'localhost',
         port: 8000
     },
-    devtool: 'cheap-module-eval-source-map'
+    devtool: 'cheap-module-eval-source-map',
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'src')
+        }
+    }
 };

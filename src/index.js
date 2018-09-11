@@ -1,5 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
+import MainFrame from './framework/mainFrame';
 
-const app = <h1>Hello, world!</h1>;
-render(app, document.getElementById('root'));
+render(<MainFrame />, document.getElementById('root'));
