@@ -1,4 +1,4 @@
-import axios from 'axios';
+import Request from '@/components/request';
 
 /**
  * 获取菜单
@@ -8,6 +8,6 @@ import axios from 'axios';
  * @param {*} err 错误处理函数
  * @returns
  */
-export function getMenus(succ, err) {
-    return axios.get("").then((response) => succ(response.data)).catch((error) => err(error));
+export default function getMenus(succ, err) {
+    return Request.get('/api/v1/system/menus').then((response) => succ && succ(response.data)).catch((error) => err && err(error));
 }

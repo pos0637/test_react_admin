@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Menu, Icon, Spin } from 'antd';
 import BaseComponent from '@/components/baseComponent';
+import getMenus from '@/api/v1/system/menu';
 import 'antd/dist/antd.css';
 import './mainFrame.scss';
 
@@ -18,6 +19,10 @@ export default class MainFrame extends BaseComponent {
             // 加载菜单标识
             loadMenus: true
         };
+
+        getMenus(() => {
+            this.setState({ loadMenus: false });
+        });
     }
 
     render() {
@@ -27,10 +32,7 @@ export default class MainFrame extends BaseComponent {
         else {
             return (
                 <Layout>
-                    <Layout.Sider
-                        breakpoint="lg"
-                        collapsedWidth="0"
-                    >
+                    <Layout.Sider breakpoint="lg" collapsedWidth="0">
                         <div className="logo" />
                         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
                             <Menu.Item key="1">
@@ -56,11 +58,11 @@ export default class MainFrame extends BaseComponent {
                         <Layout.Content style={{ margin: '24px 16px 0' }}>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                                 content
-                        </div>
+                            </div>
                         </Layout.Content>
                         <Layout.Footer style={{ textAlign: 'center' }}>
                             Ant Design ©2018 Created by Ant UED
-                    </Layout.Footer>
+                        </Layout.Footer>
                     </Layout>
                 </Layout>
             );

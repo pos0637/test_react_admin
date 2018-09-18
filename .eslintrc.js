@@ -7,7 +7,7 @@ module.exports = {
     es6: true,
     mocha: true,
     jest: true,
-    jasmine: true,
+    jasmine: true
   },
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
@@ -21,7 +21,9 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/anchor-is-valid': 0,
-    'linebreak-style': ["error", "windows"]
+    'linebreak-style': ["error", "windows"],
+    'react/jsx-indent': [2, 4],
+    'no-else-return': 0
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],
