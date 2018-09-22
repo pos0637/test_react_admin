@@ -23,7 +23,11 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 0,
     'linebreak-style': ["error", "windows"],
     'react/jsx-indent': [2, 4],
-    'no-else-return': 0
+    'react/jsx-indent-props': [2, 4],
+    'react/no-access-state-in-setstate': 0,
+    'no-else-return': 0,
+    'no-underscore-dangle': 0,
+    'no-extra-boolean-cast': 0
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],
