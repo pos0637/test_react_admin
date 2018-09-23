@@ -6,7 +6,7 @@ const Request = axios.create({
 });
 
 const Mock = new MockAdapter(Request, {
-    delayResponse: 100
+    delayResponse: 2000
 });
 
 /**
@@ -17,6 +17,21 @@ const Mock = new MockAdapter(Request, {
  * @returns 表格数据
  */
 export function getTableData(response) {
+    if ((!response) || (!response.data) || (response.data.code !== 200) || (!response.data.data)) {
+        return null;
+    } else {
+        return response.data.data;
+    }
+}
+
+/**
+ * 获取选择器数据
+ *
+ * @export
+ * @param {*} response 响应信息
+ * @returns 选择器数据
+ */
+export function getSelectData(response) {
     if ((!response) || (!response.data) || (response.data.code !== 200) || (!response.data.data)) {
         return null;
     } else {

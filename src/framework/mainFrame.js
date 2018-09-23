@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu, Icon, Spin } from 'antd';
 import BaseComponent from '@/components/baseComponent';
 import Table from '@/components/table';
+import Select from '@/components/select';
 import getMenus from '@/api/v1/system/menu';
 import 'antd/dist/antd.css';
 import './mainFrame.scss';
@@ -69,6 +70,7 @@ export default class MainFrame extends BaseComponent {
                         <Layout.Header style={{ background: '#fff', padding: 0 }} />
                         <Layout.Content style={{ margin: '24px 16px 0' }}>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                                <Select url='/api/v1/system/moduleTypes' />
                                 <Table url='/api/v1/system/modules' columns={columns} />
                             </div>
                         </Layout.Content>

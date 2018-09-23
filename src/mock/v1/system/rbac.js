@@ -1,7 +1,24 @@
 import { Mock } from '@/components/request';
 
+Mock.onGet('/api/v1/system/moduleTypes').reply(200, {
+    code: 200,
+    data: [{
+        value: 0,
+        text: '123'
+    }, {
+        value: 1,
+        text: '223'
+    }, {
+        value: 2,
+        text: '223'
+    }, {
+        value: 3,
+        text: '223'
+    }]
+});
+
 Mock.onGet('/api/v1/system/modules').reply(200, {
-    code: 201,
+    code: 200,
     data: [{
         id: 0,
         name: '123'

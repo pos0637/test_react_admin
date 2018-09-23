@@ -92,7 +92,7 @@ export default class Table extends BaseComponent {
      */
     _getColumns() {
         const columns = [];
-        this.props.columns.forEach((column) => {
+        this.props.columns.forEach(column => {
             columns.push({
                 ...column,
                 align: 'center'
