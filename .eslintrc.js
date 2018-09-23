@@ -27,7 +27,8 @@ module.exports = {
     'react/no-access-state-in-setstate': 0,
     'no-else-return': 0,
     'no-underscore-dangle': 0,
-    'no-extra-boolean-cast': 0
+    'no-extra-boolean-cast': 0,
+    'class-methods-use-this': 0
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

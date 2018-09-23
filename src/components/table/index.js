@@ -4,6 +4,7 @@ import { Table as AntdTable } from 'antd';
 import BaseComponent from '@/components/baseComponent';
 import Button from '@/components/button';
 import Request, { getTableData } from '@/components/request';
+import './index.scss';
 
 /**
  * 数据表格组件
@@ -19,7 +20,10 @@ export default class Table extends BaseComponent {
         checkable: PropTypes.bool,
         actionBar: PropTypes.bool,
         actionBarWidth: PropTypes.number,
-        actionBarView: PropTypes.any
+        actionBarView: PropTypes.any,
+        onViewButtonClick: PropTypes.func,
+        onEditButtonClick: PropTypes.func,
+        onDeleteButtonClick: PropTypes.func
     }
 
     static defaultProps = {
@@ -27,8 +31,11 @@ export default class Table extends BaseComponent {
         columns: [],
         checkable: true,
         actionBar: true,
-        actionBarWidth: 100,
-        actionBarView: undefined
+        actionBarWidth: 260,
+        actionBarView: undefined,
+        onViewButtonClick: undefined,
+        onEditButtonClick: undefined,
+        onDeleteButtonClick: undefined
     }
 
     constructor(props) {
@@ -59,7 +66,8 @@ export default class Table extends BaseComponent {
                 rowKey={record => record.id}
                 dataSource={this.state.data}
                 pagination={this.state.pagination}
-                loading={this.state.loading}
+                loading={this.state.loading && { tip: '正在加载，请稍等...' }}
+                locale={{ emptyText: this._getEmptyText() }}
                 rowSelection={this.props.checkable ? { onChange: (selectedRowKeys, selectedRows) => this._onRowSelectionChange(selectedRowKeys, selectedRows) } : undefined}
                 onChange={(pagination, filters, sorter) => this._onTableChange(pagination, filters, sorter)}
             />
@@ -83,13 +91,37 @@ export default class Table extends BaseComponent {
      * @memberof Table
      */
     _getColumns() {
-        return this.props.actionBar ? this.props.columns.concat([{
+        const columns = [];
+        this.props.columns.forEach((column) => {
+            columns.push({
+                ...column,
+                align: 'center'
+            });
+        });
+
+        return this.props.actionBar ? columns.concat([{
             title: '操作',
             key: 'operation',
             fixed: 'right',
+            align: 'center',
             width: this.props.actionBarWidth,
             render: this._getActionBar()
-        }]) : this.props.columns;
+        }]) : columns;
+    }
+
+    /**
+     * 获取空数据视图
+     *
+     * @returns 空数据视图
+     * @memberof Table
+     */
+    _getEmptyText() {
+        return (
+            <div>
+                <span className="empty_text">暂无数据,请刷新重试!</span>
+                <Button size="small" icon="reload" onClick={() => this._onTableChange(this.state.pagination)}>刷新</Button>
+            </div>
+        );
     }
 
     /**
@@ -104,14 +136,51 @@ export default class Table extends BaseComponent {
         } else if (!!this.props.actionBarView) {
             return () => this.props.actionBarView
         } else {
+            const self = this;
             return (text, record, index) => (
                 <div>
-                    <Button icon="eye">查看</Button>
-                    <Button icon="edit">编辑</Button>
-                    <Button icon="delete">删除</Button>
+                    <Button size="small" icon="eye" className="action_bar_button" onClick={() => self._onViewButtonClick(index, record)}>查看</Button>
+                    <Button size="small" icon="edit" className="action_bar_button" onClick={() => self._onEditButtonClick(index, record)}>编辑</Button>
+                    <Button size="small" icon="delete" className="action_bar_button" onClick={() => self._onDeleteButtonClick(index, record)}>删除</Button>
                 </div>
             );
         }
+    }
+
+    /**
+     * 查看按钮点击事件处理函数
+     *
+     * @param {*} index 索引
+     * @param {*} record 内容
+     * @returns
+     * @memberof Table
+     */
+    _onViewButtonClick(index, record) {
+        return this.props.onViewButtonClick && this.props.onViewButtonClick(index, record);
+    }
+
+    /**
+     * 编辑按钮点击事件处理函数
+     *
+     * @param {*} index 索引
+     * @param {*} record 内容
+     * @returns
+     * @memberof Table
+     */
+    _onEditButtonClick(index, record) {
+        return this.props.onEditButtonClick && this.props.onEditButtonClick(index, record);
+    }
+
+    /**
+     * 删除按钮点击事件处理函数
+     *
+     * @param {*} index 索引
+     * @param {*} record 内容
+     * @returns
+     * @memberof Table
+     */
+    _onDeleteButtonClick(index, record) {
+        return this.props.onDeleteButtonClick && this.props.onDeleteButtonClick(index, record);
     }
 
     /**
@@ -144,18 +213,27 @@ export default class Table extends BaseComponent {
             parameters.sortOrder = sorter.order;
         }
 
-        Request.get(this.props.url, {
-            params: parameters
-        }).then((response) => {
-            this.setState({
-                data: getTableData(response),
-                loading: false
-            });
-        }).catch(() => {
+        const onError = () => {
             this.setState({
                 data: [],
                 loading: false
             });
+        }
+
+        Request.get(this.props.url, {
+            params: parameters
+        }).then((response) => {
+            const tableData = getTableData(response);
+            if (!tableData) {
+                onError();
+            } else {
+                this.setState({
+                    data: tableData,
+                    loading: false
+                });
+            }
+        }).catch(() => {
+            onError();
         });
     }
 
