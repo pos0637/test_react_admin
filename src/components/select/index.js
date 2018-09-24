@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Select as AntdSelect, Spin, Button } from 'antd';
 import BaseComponent from '@/components/baseComponent';
-import Request, { getSelectData } from '@/components/request';
+import { request } from '@/components/request';
 
 /**
  * 选择器组件
@@ -100,27 +100,18 @@ export default class Select extends BaseComponent {
             loading: true
         });
 
-        const onError = () => {
+        const options = !value ? null : { params: value };
+
+        request(this.props.url, 'get', options, data => {
+            this.setState({
+                data: data,
+                loading: false
+            });
+        }, () => {
             this.setState({
                 data: [],
                 loading: false
             });
-        }
-
-        const options = !value ? null : { params: value };
-
-        Request.get(this.props.url, options).then((response) => {
-            const selectData = getSelectData(response);
-            if (!selectData) {
-                onError();
-            } else {
-                this.setState({
-                    data: selectData,
-                    loading: false
-                });
-            }
-        }).catch(() => {
-            onError();
         });
     }
 

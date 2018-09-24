@@ -23,4 +23,26 @@ export default class BaseComponent extends React.Component {
     getParent() {
         return this._reactInternalInstance._currentElement._owner._instance;
     }
+
+    /**
+     * 获取其余属性
+     *
+     * @returns 其余属性
+     * @memberof BaseComponent
+     */
+    getRestProps() {
+        if (!this.constructor.propTypes) {
+            return this.props;
+        }
+
+        const props = {};
+        Object.entries(this.props).forEach(prop => {
+            const [key, value] = prop;
+            if (!this.constructor.propTypes[key]) {
+                props[key] = value;
+            }
+        });
+
+        return props;
+    }
 }

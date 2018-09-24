@@ -9,5 +9,5 @@ import Request from '@/components/request';
  * @returns
  */
 export default function getMenus(succ, err) {
-    return Request.get('/api/v1/system/menus').then((response) => succ && succ(response.data)).catch((error) => err && err(error));
+    return Request.get('/api/v1/system/menus').then(response => succ && succ(response.data)).catch((error) => err && err(error));
 }

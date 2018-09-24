@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Table as AntdTable } from 'antd';
 import BaseComponent from '@/components/baseComponent';
 import Button from '@/components/button';
-import Request, { getTableData } from '@/components/request';
+import { request } from '@/components/request';
 import './index.scss';
 
 /**
@@ -16,6 +16,7 @@ import './index.scss';
 export default class Table extends BaseComponent {
     static propTypes = {
         url: PropTypes.string.isRequired,
+        params: PropTypes.object,
         columns: PropTypes.array.isRequired,
         checkable: PropTypes.bool,
         actionBar: PropTypes.bool,
@@ -28,6 +29,7 @@ export default class Table extends BaseComponent {
 
     static defaultProps = {
         url: null,
+        params: {},
         columns: [],
         checkable: true,
         actionBar: true,
@@ -203,6 +205,7 @@ export default class Table extends BaseComponent {
         });
 
         const parameters = {
+            ...this.props.params,
             results: pagination.pageSize,
             page: pagination.current,
             ...filters
@@ -213,27 +216,16 @@ export default class Table extends BaseComponent {
             parameters.sortOrder = sorter.order;
         }
 
-        const onError = () => {
+        request(this.props.url, 'get', parameters, data => {
+            this.setState({
+                data: data,
+                loading: false
+            });
+        }, () => {
             this.setState({
                 data: [],
                 loading: false
             });
-        }
-
-        Request.get(this.props.url, {
-            params: parameters
-        }).then((response) => {
-            const tableData = getTableData(response);
-            if (!tableData) {
-                onError();
-            } else {
-                this.setState({
-                    data: tableData,
-                    loading: false
-                });
-            }
-        }).catch(() => {
-            onError();
         });
     }
 
