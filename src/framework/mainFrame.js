@@ -74,7 +74,7 @@ export default class MainFrame extends BaseComponent {
                         <Layout.Content style={{ margin: '24px 16px 0' }}>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                                 <Form>
-                                    <Input type="password" />
+                                    <Input type="password" label="密码" required help="请输入密码" />
                                 </Form>
                                 <Select url="/api/v1/system/moduleTypes" />
                                 <Button url="/api/v1/system/modules" icon="search">查询</Button>

@@ -21,7 +21,7 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/anchor-is-valid': 0,
-    'linebreak-style': ["error", "windows"],
+    'linebreak-style': ['error', 'windows'],
     'react/jsx-indent': [2, 4],
     'react/jsx-indent-props': [2, 4],
     'react/no-access-state-in-setstate': 0,
@@ -30,9 +30,13 @@ module.exports = {
     'no-extra-boolean-cast': 0,
     'class-methods-use-this': 0,
     'no-unused-expressions': 0,
-    'object-shorthand': 0
+    'object-shorthand': 0,
+    'linebreak-style': [
+      'error',
+      'unix'
+    ]
   },
   settings: {
-    polyfills: ['fetch', 'promises', 'url'],
-  },
-};
+    polyfills: ['fetch', 'promises', 'url']
+  }
+}
