@@ -1,4 +1,4 @@
-import { Mock } from '@/components/request';
+import { Mock } from '~/components/request';
 
 Mock.onGet('/api/v1/system/moduleTypes').reply(200, {
     code: 200,

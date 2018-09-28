@@ -1,12 +1,12 @@
 import React from 'react';
 import { Layout, Menu, Icon, Spin } from 'antd';
-import BaseComponent from '@/components/baseComponent';
-import Form from '@/components/form';
-import Input from '@/components/input';
-import Button from '@/components/button';
-import Table from '@/components/table';
-import Select from '@/components/select';
-import getMenus from '@/api/v1/system/menu';
+import BaseComponent from '~/components/baseComponent';
+import Form from '~/components/form';
+import Input from '~/components/input';
+import Button from '~/components/button';
+import Table from '~/components/table';
+import Select from '~/components/select';
+import getMenus from '~/api/v1/system/menu';
 import 'antd/dist/antd.css';
 import './mainFrame.scss';
 

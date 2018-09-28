@@ -1,6 +1,7 @@
 const path = require('path');
-const htmlWebpackPlugin = require('html-webpack-plugin');
-const cleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 const outputPath = './dist/';
 
 module.exports = {
@@ -35,21 +36,16 @@ module.exports = {
         ]
     },
     plugins: [
-        new htmlWebpackPlugin({
+        new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(__dirname, './public/index.html')
         }),
-        new cleanWebpackPlugin([outputPath])
+        new CleanWebpackPlugin([outputPath])
     ],
     devServer: {
         contentBase: path.resolve(__dirname, outputPath),
         host: 'localhost',
         port: 8000
     },
-    devtool: 'cheap-module-eval-source-map',
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, 'src')
-        }
-    }
+    devtool: 'cheap-module-eval-source-map'
 };

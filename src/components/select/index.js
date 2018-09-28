@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Select as AntdSelect, Spin, Button } from 'antd';
-import BaseComponent from '@/components/baseComponent';
-import { request } from '@/components/request';
+import BaseComponent from '~/components/baseComponent';
+import { request } from '~/components/request';
 
 /**
  * 选择器组件

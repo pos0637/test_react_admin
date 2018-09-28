@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button as AntdButton } from 'antd';
-import BaseComponent from '@/components/baseComponent';
-import { request } from '@/components/request';
+import BaseComponent from '~/components/baseComponent';
+import { request } from '~/components/request';
 
 /**
  * 按钮组件

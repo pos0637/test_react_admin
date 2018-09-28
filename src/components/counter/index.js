@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BaseComponent from '@/components/baseComponent';
+import BaseComponent from '~/components/baseComponent';
 
 export default class Counter extends BaseComponent {
     static propTypes = {

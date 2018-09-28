@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input as AntdInput, Form } from 'antd';
-import BaseComponent from '@/components/baseComponent';
+import BaseComponent from '~/components/baseComponent';
 
 /**
  * 输入框组件

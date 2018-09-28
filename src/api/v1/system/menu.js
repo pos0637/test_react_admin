@@ -1,4 +1,4 @@
-import Request from '@/components/request';
+import Request from '~/components/request';
 
 /**
  * 获取菜单

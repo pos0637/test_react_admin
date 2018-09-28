@@ -15,7 +15,6 @@ module.exports = {
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-one-expression-per-line': 0,
-    'import/no-unresolved': [2, { ignore: ['^@/', '^umi/'] }],
     'import/no-extraneous-dependencies': [2, { optionalDependencies: true }],
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'jsx-a11y/click-events-have-key-events': 0,
@@ -30,13 +29,10 @@ module.exports = {
     'no-extra-boolean-cast': 0,
     'class-methods-use-this': 0,
     'no-unused-expressions': 0,
-    'object-shorthand': 0,
-    'linebreak-style': [
-      'error',
-      'unix'
-    ]
+    'object-shorthand': 0
   },
   settings: {
-    polyfills: ['fetch', 'promises', 'url']
+    polyfills: ['fetch', 'promises', 'url'],
+    'import/resolver': 'babel-plugin-root-import'
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table as AntdTable } from 'antd';
-import BaseComponent from '@/components/baseComponent';
-import Button from '@/components/button';
-import { request } from '@/components/request';
+import BaseComponent from '~/components/baseComponent';
+import Button from '~/components/button';
+import { request } from '~/components/request';
 import './index.scss';
 
 /**
