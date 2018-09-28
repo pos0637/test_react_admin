@@ -23,12 +23,9 @@ class _Form extends BaseComponent {
         params: null
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: false
-        };
-    }
+    state = {
+        loading: false
+    };
 
     render() {
         return (

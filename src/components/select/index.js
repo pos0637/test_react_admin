@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import intl from 'react-intl-universal';
 import { Select as AntdSelect, Spin, Button } from 'antd';
 import BaseComponent from '~/components/baseComponent';
 import { request } from '~/components/request';
@@ -28,13 +29,14 @@ export default class Select extends BaseComponent {
         width: '200px'
     }
 
+    state = {
+        data: [],
+        loading: false
+    };
+
     constructor(props) {
         super(props);
         this.selectedItems = [];
-        this.state = {
-            data: [],
-            loading: false
-        };
     }
 
     componentDidMount() {
@@ -82,8 +84,8 @@ export default class Select extends BaseComponent {
     _getEmptyText() {
         return (
             <div>
-                <span className="empty_text">暂无数据,请刷新重试!</span>
-                <Button size="small" icon="reload" onClick={() => this._onSearch()}>刷新</Button>
+                <span className="empty_text">{intl.get('components.select.empty_text')}</span>
+                <Button size="small" icon="reload" onClick={() => this._onSearch()}>{intl.get('components.select.reload')}</Button>
             </div>
         );
     }

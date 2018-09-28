@@ -32,12 +32,9 @@ export default class Button extends BaseComponent {
         waitForComplete: true
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: false
-        };
-    }
+    state = {
+        loading: false
+    };
 
     render() {
         return (

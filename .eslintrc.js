@@ -29,7 +29,8 @@ module.exports = {
     'no-extra-boolean-cast': 0,
     'class-methods-use-this': 0,
     'no-unused-expressions': 0,
-    'object-shorthand': 0
+    'object-shorthand': 0,
+    'global-require': 0
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

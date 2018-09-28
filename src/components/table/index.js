@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import intl from 'react-intl-universal';
 import { Table as AntdTable } from 'antd';
 import BaseComponent from '~/components/baseComponent';
 import Button from '~/components/button';
@@ -40,21 +41,22 @@ export default class Table extends BaseComponent {
         onDeleteButtonClick: undefined
     }
 
+    state = {
+        data: [],
+        pagination: {
+            current: 0,
+            pageSize: 10,
+            total: 0,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            pageSizeOptions: ['10', '20', '50', '100']
+        },
+        loading: false
+    };
+
     constructor(props) {
         super(props);
         this.selectedItems = [];
-        this.state = {
-            data: [],
-            pagination: {
-                current: 0,
-                pageSize: 10,
-                total: 0,
-                showSizeChanger: true,
-                showQuickJumper: true,
-                pageSizeOptions: ['10', '20', '50', '100']
-            },
-            loading: false
-        };
     }
 
     componentDidMount() {
@@ -68,7 +70,7 @@ export default class Table extends BaseComponent {
                 rowKey={record => record.id}
                 dataSource={this.state.data}
                 pagination={this.state.pagination}
-                loading={this.state.loading && { tip: '正在加载，请稍等...' }}
+                loading={this.state.loading && { tip: intl.get('components.table.loading') }}
                 locale={{ emptyText: this._getEmptyText() }}
                 rowSelection={this.props.checkable ? { onChange: (selectedRowKeys, selectedRows) => this._onRowSelectionChange(selectedRowKeys, selectedRows) } : undefined}
                 onChange={(pagination, filters, sorter) => this._onTableChange(pagination, filters, sorter)}
@@ -102,7 +104,7 @@ export default class Table extends BaseComponent {
         });
 
         return this.props.actionBar ? columns.concat([{
-            title: '操作',
+            title: intl.get('components.table.actionbar.title'),
             key: 'operation',
             fixed: 'right',
             align: 'center',
@@ -120,8 +122,8 @@ export default class Table extends BaseComponent {
     _getEmptyText() {
         return (
             <div>
-                <span className="empty_text">暂无数据,请刷新重试!</span>
-                <Button size="small" icon="reload" onClick={() => this._onTableChange(this.state.pagination)}>刷新</Button>
+                <span className="empty_text">{intl.get('components.table.empty_text')}</span>
+                <Button size="small" icon="reload" onClick={() => this._onTableChange(this.state.pagination)}>{intl.get('components.table.reload')}</Button>
             </div>
         );
     }
@@ -141,9 +143,9 @@ export default class Table extends BaseComponent {
             const self = this;
             return (text, record, index) => (
                 <div>
-                    <Button size="small" icon="eye" className="action_bar_button" onClick={() => self._onViewButtonClick(index, record)}>查看</Button>
-                    <Button size="small" icon="edit" className="action_bar_button" onClick={() => self._onEditButtonClick(index, record)}>编辑</Button>
-                    <Button size="small" icon="delete" className="action_bar_button" onClick={() => self._onDeleteButtonClick(index, record)}>删除</Button>
+                    <Button size="small" icon="eye" className="action_bar_button" onClick={() => self._onViewButtonClick(index, record)}>{intl.get('components.table.actionbar.view')}</Button>
+                    <Button size="small" icon="edit" className="action_bar_button" onClick={() => self._onEditButtonClick(index, record)}>{intl.get('components.table.actionbar.edit')}</Button>
+                    <Button size="small" icon="delete" className="action_bar_button" onClick={() => self._onDeleteButtonClick(index, record)}>{intl.get('components.table.actionbar.delete')}</Button>
                 </div>
             );
         }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Menu, Icon, Spin } from 'antd';
+import intl from 'react-intl-universal';
 import BaseComponent from '~/components/baseComponent';
 import Form from '~/components/form';
 import Input from '~/components/input';
@@ -18,13 +19,11 @@ import './mainFrame.scss';
  * @extends {BaseComponent}
  */
 export default class MainFrame extends BaseComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            // 加载菜单标识
-            loadMenus: true
-        };
+    state = {
+        loadMenus: true // 加载菜单标识
+    };
 
+    componentDidMount() {
         getMenus(() => {
             this.setState({ loadMenus: false });
         });
@@ -43,7 +42,7 @@ export default class MainFrame extends BaseComponent {
         }];
 
         if (this.state.loadMenus) {
-            return (<div className="loading"><Spin size="large" tip="正在加载，请稍等..." /></div>);
+            return (<div className="loading"><Spin size="large" tip={intl.get('mainFrame.loading.tip')} /></div>);
         }
         else {
             return (
@@ -73,8 +72,9 @@ export default class MainFrame extends BaseComponent {
                         <Layout.Header style={{ background: '#fff', padding: 0 }} />
                         <Layout.Content style={{ margin: '24px 16px 0' }}>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                                {intl.get('test1')}
                                 <Form>
-                                    <Input type="password" label="密码" required help="请输入密码" />
+                                    <Input type="password" label="密码" required placeholder="请输入密码" />
                                 </Form>
                                 <Select url="/api/v1/system/moduleTypes" />
                                 <Button url="/api/v1/system/modules" icon="search">查询</Button>
