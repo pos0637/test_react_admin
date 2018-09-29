@@ -72,7 +72,6 @@ export default class MainFrame extends BaseComponent {
                         <Layout.Header style={{ background: '#fff', padding: 0 }} />
                         <Layout.Content style={{ margin: '24px 16px 0' }}>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                {intl.get('test1')}
                                 <Form>
                                     <Input type="password" label="密码" required placeholder="请输入密码" />
                                 </Form>

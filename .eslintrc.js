@@ -24,13 +24,14 @@ module.exports = {
     'react/jsx-indent': [2, 4],
     'react/jsx-indent-props': [2, 4],
     'react/no-access-state-in-setstate': 0,
+    'react/destructuring-assignment': 0,
     'no-else-return': 0,
     'no-underscore-dangle': 0,
     'no-extra-boolean-cast': 0,
     'class-methods-use-this': 0,
     'no-unused-expressions': 0,
     'object-shorthand': 0,
-    'global-require': 0
+    'global-require': 0    
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

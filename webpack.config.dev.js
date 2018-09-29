@@ -1,14 +1,34 @@
 const path = require('path');
+const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const outputPath = './dist/';
+const files = glob.sync('./src/**/entry.js');
+const entries = {};
+const plugins = [];
+
+files.forEach(file => {
+    const name = /src\/(.*)\/entry.js/.exec(file)[1].replace(/\//g, '_');
+    entries[name] = [
+        '@babel/polyfill',
+        file
+    ];
+
+    plugins.push(new HtmlWebpackPlugin({
+        filename: `${name}.html`,
+        template: path.resolve(__dirname, './public/index.html'),
+        chunks: [name]
+    }));
+});
 
 module.exports = {
-    entry: [
-        "@babel/polyfill",
-        path.resolve(__dirname, './src/index.js')
-    ],
+    entry: Object.assign({}, {
+        'index': [
+            '@babel/polyfill',
+            path.resolve(__dirname, './src/index.js')
+        ]
+    }, entries),
     output: {
         path: path.resolve(__dirname, outputPath),
         filename: 'js/[name].bundle.js'
@@ -38,10 +58,11 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: path.resolve(__dirname, './public/index.html')
+            template: path.resolve(__dirname, './public/index.html'),
+            chunks: ['index']
         }),
         new CleanWebpackPlugin([outputPath])
-    ],
+    ].concat(plugins),
     devServer: {
         contentBase: path.resolve(__dirname, outputPath),
         host: 'localhost',
