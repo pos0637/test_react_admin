@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx webpack --mode development --config webpack.config.dev.js",
     "start": "npx webpack-dev-server --mode development --config webpack.config.dev.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "analyz": "npx webpack --config webpack.config.dev.js --progress --display-reasons --colors --display-modules --profile --json > stats.json && webpack-bundle-analyzer stats.json"
   },
   "author": "",
   "license": "ISC",
@@ -14,9 +15,11 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "autodll-webpack-plugin": "^0.4.2",
     "axios-mock-adapter": "^1.15.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.2",
+    "babel-plugin-import": "^1.9.1",
     "babel-plugin-root-import": "^6.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
@@ -38,7 +41,9 @@
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.17.2",
+    "webpack-bundle-analyzer": "^3.0.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8"
   },
