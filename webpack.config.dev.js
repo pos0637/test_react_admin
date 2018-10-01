@@ -33,7 +33,7 @@ module.exports = {
     }, entries),
     output: {
         path: path.resolve(__dirname, outputPath),
-        filename: 'js/[name].bundle.js'
+        filename: 'js/[name].[chunkhash].js'
     },
     module: {
         rules: [

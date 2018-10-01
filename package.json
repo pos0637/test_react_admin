@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dll": "npx webpack --mode development --config webpack.config.dll.js",
     "build": "npx webpack --mode development --config webpack.config.dev.js",
     "start": "npx webpack-dev-server --mode development --config webpack.config.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
