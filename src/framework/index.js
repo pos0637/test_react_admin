@@ -46,7 +46,7 @@ export default class Framework extends BaseComponent {
         else {
             return (
                 <Layout>
-                    <Layout.Sider breakpoint="lg" collapsedWidth="0">
+                    <Layout.Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
                         <div className="logo" />
                         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
                             <Menu.Item key="1">
@@ -67,10 +67,10 @@ export default class Framework extends BaseComponent {
                             </Menu.Item>
                         </Menu>
                     </Layout.Sider>
-                    <Layout>
-                        <Layout.Header style={{ background: '#fff', padding: 0 }} />
-                        <Layout.Content style={{ margin: '24px 16px 0' }}>
-                            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                    <Layout style={{ marginLeft: 200 }}>
+                        <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%' }} />
+                        <Layout.Content style={{ margin: '64px 0 0', overflow: 'initial' }}>
+                            <div style={{ padding: 16, background: '#fff', minHeight: 360 }}>
                                 <Form>
                                     <Input type="password" label="密码" required placeholder="请输入密码" />
                                 </Form>

@@ -13,7 +13,7 @@ import '~/mock';
 export default class Application extends React.Component {
     static propTypes = {
         currentLocale: PropTypes.string,
-        locales: PropTypes.array
+        locales: PropTypes.object
     }
 
     static defaultProps = {
