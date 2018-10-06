@@ -2,11 +2,7 @@ import React from 'react';
 import { Layout, Menu, Icon, Spin } from 'antd';
 import intl from 'react-intl-universal';
 import BaseComponent from '~/components/baseComponent';
-import Form from '~/components/form';
-import Input from '~/components/input';
-import Button from '~/components/button';
-import Table from '~/components/table';
-import Select from '~/components/select';
+import Iframe from '~/components/iframe';
 import getMenus from '~/api/v1/system/menu';
 import './index.scss';
 
@@ -70,14 +66,7 @@ export default class Framework extends BaseComponent {
                     <Layout style={{ marginLeft: 200 }}>
                         <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%' }} />
                         <Layout.Content style={{ margin: '64px 0 0', overflow: 'initial' }}>
-                            <div style={{ padding: 16, background: '#fff', minHeight: 360 }}>
-                                <Form>
-                                    <Input type="password" label="密码" required placeholder="请输入密码" />
-                                </Form>
-                                <Select url="/api/v1/system/moduleTypes" />
-                                <Button url="/api/v1/system/modules" icon="search">查询</Button>
-                                <Table url="/api/v1/system/modules" columns={columns} />
-                            </div>
+                            <Iframe style={{ width: '100%', height: '100%' }} url="./app_system_dictionary.html" />
                         </Layout.Content>
                         <Layout.Footer style={{ textAlign: 'center' }}>
                             Ant Design ©2018 Created by Ant UED

@@ -28,7 +28,7 @@ export default class Application extends React.Component {
             'zh-CN.framework': require('~/locales/zh-CN.json')
         };
 
-        Object.assign(this.props.locales[this.props.currentLocale], locales[`${this.props.currentLocale}.framework`]);
+        Object.assign(this.props.locales[this.props.currentLocale] || {}, locales[`${this.props.currentLocale}.framework`]);
         Object.assign(locales, this.props.locales);
 
         intl.init({

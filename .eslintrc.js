@@ -15,11 +15,13 @@ module.exports = {
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-one-expression-per-line': 0,
+    'react/no-find-dom-node': 0,
     'import/no-extraneous-dependencies': [2, { optionalDependencies: true }],
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/anchor-is-valid': 0,
+    'jsx-a11y/iframe-has-title': 0,
     'linebreak-style': ['error', 'windows'],
     'react/jsx-indent': [2, 4],
     'react/jsx-indent-props': [2, 4],
@@ -31,7 +33,7 @@ module.exports = {
     'class-methods-use-this': 0,
     'no-unused-expressions': 0,
     'object-shorthand': 0,
-    'global-require': 0    
+    'global-require': 0
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],
