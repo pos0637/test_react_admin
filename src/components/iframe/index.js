@@ -13,7 +13,7 @@ export default class Iframe extends BaseComponent {
     }
 
     state = {
-        height: '0px'
+        height: '100%'
     };
 
     render() {
@@ -24,12 +24,10 @@ export default class Iframe extends BaseComponent {
                 height={this.state.height}
                 scrolling="no"
                 frameBorder="0"
-                style={{ width: '100%', height: this.state.height, overflow: 'visible', position: 'absolute' }}
+                style={{ width: '100%', height: this.state.height, overflow: 'scroll' }}
                 onLoad={() => {
-                    const { scrollHeight } = ReactDOM.findDOMNode(this).contentWindow.document.body;                   
-                    this.setState({
-                        height: `${scrollHeight}px`
-                    });
+                    const { scrollHeight } = ReactDOM.findDOMNode(this).contentWindow.document.body;                    
+                    this.setState({ height: `${scrollHeight}px` });
                 }}
             />
         );

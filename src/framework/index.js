@@ -25,53 +25,42 @@ export default class Framework extends BaseComponent {
     }
 
     render() {
-        const columns = [{
-            title: 'id',
-            dataIndex: 'id',
-            sorter: true,
-            width: '20%'
-        }, {
-            title: 'name',
-            dataIndex: 'name',
-            sorter: true
-        }];
-
         if (this.state.loadMenus) {
             return (<div className="loading"><Spin size="large" tip={intl.get('mainFrame.loading.tip')} /></div>);
         }
         else {
             return (
                 <Layout>
-                    <Layout.Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
-                        <div className="logo" />
-                        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-                            <Menu.Item key="1">
-                                <Icon type="user" />
-                                <span className="nav-text">nav 1</span>
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="video-camera" />
-                                <span className="nav-text">nav 2</span>
-                            </Menu.Item>
-                            <Menu.Item key="3">
-                                <Icon type="upload" />
-                                <span className="nav-text">nav 3</span>
-                            </Menu.Item>
-                            <Menu.Item key="4">
-                                <Icon type="user" />
-                                <span className="nav-text">nav 4</span>
-                            </Menu.Item>
-                        </Menu>
-                    </Layout.Sider>
-                    <Layout style={{ marginLeft: 200 }}>
-                        <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%' }} />
-                        <Layout.Content style={{ margin: '64px 0 0', overflow: 'initial' }}>
-                            <Iframe style={{ width: '100%', height: '100%' }} url="./app_system_dictionary.html" />
+                    <Layout.Header />
+                    <Layout>
+                        <Layout.Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
+                            <div className="logo" />
+                            <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+                                <Menu.Item key="1">
+                                    <Icon type="user" />
+                                    <span className="nav-text">nav 1</span>
+                                </Menu.Item>
+                                <Menu.Item key="2">
+                                    <Icon type="video-camera" />
+                                    <span className="nav-text">nav 2</span>
+                                </Menu.Item>
+                                <Menu.Item key="3">
+                                    <Icon type="upload" />
+                                    <span className="nav-text">nav 3</span>
+                                </Menu.Item>
+                                <Menu.Item key="4">
+                                    <Icon type="user" />
+                                    <span className="nav-text">nav 4</span>
+                                </Menu.Item>
+                            </Menu>
+                        </Layout.Sider>
+                        <Layout.Content style={{ marginLeft: 200, overflow: 'initial' }}>
+                            <Iframe url="./app_system_dictionary.html" />
                         </Layout.Content>
-                        <Layout.Footer style={{ textAlign: 'center' }}>
-                            Ant Design ©2018 Created by Ant UED
-                        </Layout.Footer>
                     </Layout>
+                    <Layout.Footer style={{ textAlign: 'center', padding: '4px 50px'}}>
+                        Ant Design ©2018 Created by Ant UED
+                    </Layout.Footer>
                 </Layout>
             );
         }
