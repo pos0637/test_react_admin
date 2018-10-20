@@ -42,7 +42,7 @@ export default class Application extends React.Component {
         const { loadLocale } = this.state;
 
         return (
-            loadLocale ? <div style={{ width: '100%', height: '100%', overflow: 'scroll' }}>{this.props.children}</div> : <Spin />
+            loadLocale ? <div style={{ width: '100%', height: '100%' }}>{this.props.children}</div> : <Spin />
         );
     }
 }

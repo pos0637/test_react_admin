@@ -54,11 +54,11 @@ export default class Framework extends BaseComponent {
                                 </Menu.Item>
                             </Menu>
                         </Layout.Sider>
-                        <Layout.Content style={{ marginLeft: 200, overflow: 'initial' }}>
+                        <Layout.Content style={{ marginLeft: 200, overflow: 'initial' }}>                            
                             <Iframe url="./app_system_dictionary.html" />
                         </Layout.Content>
                     </Layout>
-                    <Layout.Footer style={{ textAlign: 'center', padding: '4px 50px'}}>
+                    <Layout.Footer style={{ textAlign: 'center', padding: '4px 50px' }}>
                         Ant Design ©2018 Created by Ant UED
                     </Layout.Footer>
                 </Layout>
