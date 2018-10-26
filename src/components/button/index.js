@@ -50,7 +50,7 @@ export default class Button extends BaseComponent {
     _onClick() {
         if (!this.props.url || !this.props.method) {
             this.props.onClick && this.props.waitForComplete && this.setState({ loading: true });
-            this.props.onClick && this.props.onClick(() => this.setState({ loading: false }));
+            this.props.onClick && this.props.onClick(this, () => this.setState({ loading: false }));
             return;
         }
 

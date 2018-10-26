@@ -55,7 +55,7 @@ export default class Framework extends BaseComponent {
                             </Menu>
                         </Layout.Sider>
                         <Layout.Content style={{ marginLeft: 200, overflow: 'initial' }}>                            
-                            <Iframe url="./app_system_dictionary.html" />
+                            <Iframe url="./app_system_role.html" />
                         </Layout.Content>
                     </Layout>
                     <Layout.Footer style={{ textAlign: 'center', padding: '4px 50px' }}>
