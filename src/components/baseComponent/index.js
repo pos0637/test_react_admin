@@ -1,5 +1,6 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PropTypes from 'prop-types';
 
 /**
  * 基础组件
@@ -9,10 +10,22 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
  * @extends {React.Component}
  */
 export default class BaseComponent extends React.Component {
+    static childContextTypes = {
+        parent: PropTypes.func // 父组件
+    }
+
+    static contextTypes = {
+        parent: PropTypes.func // 父组件
+    }
+
     constructor(props) {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.initialize && this.initialize();
+    }
+
+    getChildContext() {
+        return { parent: () => this };
     }
 
     /**
@@ -22,7 +35,7 @@ export default class BaseComponent extends React.Component {
      * @memberof BaseComponent
      */
     getParent() {
-        return this._reactInternalInstance._currentElement._owner._instance;
+        return !this.context.parent ? null : this.context.parent();
     }
 
     /**
