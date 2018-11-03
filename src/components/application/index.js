@@ -21,7 +21,22 @@ export default class Application extends React.Component {
         locales: {}
     }
 
+    static childContextTypes = {
+        view: PropTypes.func // 视图组件
+    }
+
     state = { loadLocale: false }
+
+    /**
+     * 视图组件
+     *
+     * @memberof Application
+     */
+    view = null
+
+    getChildContext() {
+        return { view: () => this.view };
+    }
 
     componentDidMount() {
         const locales = {
@@ -40,9 +55,10 @@ export default class Application extends React.Component {
 
     render() {
         const { loadLocale } = this.state;
+        const child = React.cloneElement(this.props.children, { ref: (ref) => { this.view = ref; } });
 
         return (
-            loadLocale ? <div style={{ width: '100%', height: '100%' }}>{this.props.children}</div> : <Spin />
+            loadLocale ? <div style={{ width: '100%', height: '100%' }}>{child}</div> : <Spin />
         );
     }
 }

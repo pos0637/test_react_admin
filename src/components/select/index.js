@@ -40,6 +40,7 @@ export default class Select extends BaseComponent {
     }
 
     componentDidMount() {
+        super.componentDidMount();
         this._onSearch();
     }
 

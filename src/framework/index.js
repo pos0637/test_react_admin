@@ -19,6 +19,7 @@ export default class Framework extends BaseComponent {
     };
 
     componentDidMount() {
+        super.componentDidMount();
         getMenus(() => {
             this.setState({ loadMenus: false });
         });
@@ -54,7 +55,7 @@ export default class Framework extends BaseComponent {
                                 </Menu.Item>
                             </Menu>
                         </Layout.Sider>
-                        <Layout.Content style={{ marginLeft: 200, overflow: 'initial' }}>                            
+                        <Layout.Content style={{ marginLeft: 200, overflow: 'initial' }}>
                             <Iframe url="./app_system_role.html" />
                         </Layout.Content>
                     </Layout>

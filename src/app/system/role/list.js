@@ -28,13 +28,13 @@ export default class ListView extends BaseComponent {
     render() {
         return (
             <div style={{ padding: 16, background: '#fff', minHeight: 360 }}>
-                <Form>
+                <Form name="form1">
                     <Input type="password" label="密码" required placeholder="请输入密码" />
-                    <Button icon="search" onClick={sender => console.log(sender.getParent())}>查询</Button>
+                    <Button icon="search" onClick={() => console.log(this.getView().child('table1'))}>查询</Button>
                 </Form>
                 <Select url="/api/v1/system/roleTypes" />
                 <Button icon="search">查询</Button>
-                <Table url="/api/v1/system/roles" columns={this.columns} />
+                <Table name="table1" url="/api/v1/system/roles" columns={this.columns} />
             </div>
         );
     }

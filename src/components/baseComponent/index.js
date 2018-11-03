@@ -15,8 +15,16 @@ export default class BaseComponent extends React.Component {
     }
 
     static contextTypes = {
+        view: PropTypes.func, // 视图组件
         parent: PropTypes.func // 父组件
     }
+
+    /**
+     * 子组件列表
+     *
+     * @memberof BaseComponent
+     */
+    children = {}
 
     constructor(props) {
         super(props);
@@ -28,10 +36,28 @@ export default class BaseComponent extends React.Component {
         return { parent: () => this };
     }
 
+    componentDidMount() {
+        this.getParent() && this.getName() && this.getParent().registerChildComponent(this);
+    }
+
+    componentWillUnmount() {
+        this.getParent() && this.getName() && this.getParent().unregisterChildComponent(this);
+    }
+
     /**
-     * 获取父控件
+     * 获取视图组件
      *
-     * @returns 父控件
+     * @returns 视图组件
+     * @memberof BaseComponent
+     */
+    getView() {
+        return !this.context.view ? null : this.context.view();
+    }
+
+    /**
+     * 获取父组件
+     *
+     * @returns 父组件
      * @memberof BaseComponent
      */
     getParent() {
@@ -58,5 +84,46 @@ export default class BaseComponent extends React.Component {
         });
 
         return props;
+    }
+
+    /**
+     * 获取组件名称
+     *
+     * @returns 名称
+     * @memberof BaseComponent
+     */
+    getName() {
+        return this.props.name || null;
+    }
+
+    /**
+     * 注册子组件
+     *
+     * @param {*} child 子组件
+     * @memberof BaseComponent
+     */
+    registerChildComponent(child) {
+        this.children[child.getName()] = child;
+    }
+
+    /**
+     * 注销子组件
+     *
+     * @param {*} child 子组件
+     * @memberof BaseComponent
+     */
+    unregisterChildComponent(child) {
+        delete this.children[child.getName()];
+    }
+
+    /**
+     * 获取子组件
+     *
+     * @param {*} name 子组件名称
+     * @returns 子组件
+     * @memberof BaseComponent
+     */
+    child(name) {
+        return this.children[name];
     }
 }

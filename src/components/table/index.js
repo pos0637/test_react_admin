@@ -60,6 +60,7 @@ export default class Table extends BaseComponent {
     }
 
     componentDidMount() {
+        super.componentDidMount();
         this._onTableChange(this.state.pagination);
     }
 
