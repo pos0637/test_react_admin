@@ -16,7 +16,7 @@ import './index.scss';
 export default class Framework extends BaseComponent {
     state = {
         loadMenus: true // 加载菜单标识
-    };
+    }
 
     componentDidMount() {
         super.componentDidMount();

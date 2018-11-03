@@ -32,7 +32,7 @@ export default class Select extends BaseComponent {
     state = {
         data: [],
         loading: false
-    };
+    }
 
     constructor(props) {
         super(props);

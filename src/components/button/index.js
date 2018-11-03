@@ -34,7 +34,7 @@ export default class Button extends BaseComponent {
 
     state = {
         loading: false
-    };
+    }
 
     render() {
         return (

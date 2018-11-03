@@ -25,7 +25,7 @@ class _Form extends BaseComponent {
 
     state = {
         loading: false
-    };
+    }
 
     render() {
         return (
@@ -35,6 +35,10 @@ class _Form extends BaseComponent {
                 )}
             </AntdForm>
         );
+    }
+
+    getFieldsValue() {
+        return this.props.form.getFieldsValue();
     }
 }
 

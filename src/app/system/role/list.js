@@ -23,14 +23,18 @@ export default class ListView extends BaseComponent {
         title: 'name',
         dataIndex: 'name',
         sorter: true
-    }];
+    }]
 
     render() {
         return (
             <div style={{ padding: 16, background: '#fff', minHeight: 360 }}>
                 <Form name="form1">
-                    <Input type="password" label="密码" required placeholder="请输入密码" />
-                    <Button icon="search" onClick={() => console.log(this.getView().child('table1'))}>查询</Button>
+                    <Input id="input1" type="password" label="密码" required placeholder="请输入密码" />
+                    <Button icon="search" onClick={() => console.log(this.getView().child('form1').getFieldsValue())}>查询</Button>
+                </Form>
+                <Form name="form2">
+                    <Input id="input2" type="password" label="密码" required placeholder="请输入密码" />
+                    <Button icon="search" onClick={() => console.log(this.getView().child('form1').getFieldsValue())}>查询</Button>
                 </Form>
                 <Select url="/api/v1/system/roleTypes" />
                 <Button icon="search">查询</Button>

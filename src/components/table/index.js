@@ -52,7 +52,7 @@ export default class Table extends BaseComponent {
             pageSizeOptions: ['10', '20', '50', '100']
         },
         loading: false
-    };
+    }
 
     constructor(props) {
         super(props);
