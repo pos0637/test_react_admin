@@ -28,8 +28,10 @@ class _Form extends BaseComponent {
     }
 
     render() {
+        const { form, ...props } = this.getRestProps();
+
         return (
-            <AntdForm>
+            <AntdForm {...props}>
                 {React.Children.map(this.props.children, child =>
                     React.cloneElement(child, { form: this.props.form })
                 )}
@@ -37,6 +39,13 @@ class _Form extends BaseComponent {
         );
     }
 
+
+    /**
+     * 获取所有字段内容
+     *
+     * @returns 所有字段内容
+     * @memberof _Form
+     */
     getFieldsValue() {
         return this.props.form.getFieldsValue();
     }

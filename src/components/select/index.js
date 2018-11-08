@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
-import { Select as AntdSelect, Spin, Button } from 'antd';
+import { Select as AntdSelect, Spin, Button, Form } from 'antd';
 import BaseComponent from '~/components/baseComponent';
 import { request } from '~/components/request';
 
@@ -14,19 +14,31 @@ import { request } from '~/components/request';
  */
 export default class Select extends BaseComponent {
     static propTypes = {
-        url: PropTypes.string.isRequired,
-        value: PropTypes.array.isRequired, // 数组内容为字符串格式键值
-        multiple: PropTypes.bool,
-        placeholder: PropTypes.string,
-        width: PropTypes.string
+        url: PropTypes.string.isRequired, // 请求地址
+        multiple: PropTypes.bool, // 是否多选
+        width: PropTypes.string, // 宽度
+        label: PropTypes.string, // 标题
+        hasFeedback: PropTypes.bool, // 是否反馈
+        help: PropTypes.string, // 帮助内容
+        required: PropTypes.bool, // 是否必填
+        requiredMessage: PropTypes.string, // 必填提示信息 
+        rules: PropTypes.array, // 内容规则
+        validator: PropTypes.func, // 内容检查函数
+        initialValue: PropTypes.any // 初始值,数组内容为字符串格式键值
     }
 
     static defaultProps = {
         url: null,
-        value: [],
         multiple: false,
-        placeholder: null,
-        width: '200px'
+        width: '200px',
+        label: undefined,
+        hasFeedback: false,
+        help: undefined,
+        required: false,
+        requiredMessage: undefined,
+        rules: [],
+        validator: undefined,
+        initialValue: undefined
     }
 
     state = {
@@ -45,24 +57,61 @@ export default class Select extends BaseComponent {
     }
 
     render() {
+        const { getFieldDecorator } = this.props.form;
+
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 8 }
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 16 }
+            }
+        };
+
+        const newRules = [
+            ...this.props.rules
+        ];
+
+        this.props.required && newRules.push({
+            required: this.props.required,
+            message: this.props.requiredMessage
+        });
+
+        this.props.validator && newRules.push({
+            validator: this.props.validator
+        });
+
+        const { form, ...props } = this.getRestProps();
+
         return (
-            <div>
-                <AntdSelect
-                    mode={!this.props.multiple ? undefined : "multiple"}
-                    allowClear
-                    showSearch
-                    optionFilterProp="children"
-                    defaultValue={this.props.value}
-                    placeholder={this.props.placeholder}
-                    notFoundContent={this.state.loading ? <Spin size="small" /> : this._getEmptyText()}
-                    onSearch={(value) => this._onSearch(value)}
-                    onChange={(value) => this._onChange(value)}
-                    style={{ width: this.props.width }}
-                >
-                    {this.state.data.map(d => <AntdSelect.Option key={d.value}>{d.text}</AntdSelect.Option>)}
-                    <AntdSelect.Option value="disabled" disabled>{this.state.loading ? <Spin size="small" style={{ paddingRight: "8px" }} /> : null}<Button size="small" icon="reload" onClick={() => this._onSearch()}>刷新</Button></AntdSelect.Option>
-                </AntdSelect>
-            </div>
+            <Form.Item
+                {...formItemLayout}
+                label={this.props.label}
+                hasFeedback={this.props.hasFeedback}
+                help={this.props.help}
+            >
+                {getFieldDecorator(this.props.id, {
+                    rules: newRules,
+                    initialValue: this.props.initialValue
+                })(
+                    <AntdSelect
+                        {...props}
+                        mode={!this.props.multiple ? undefined : "multiple"}
+                        allowClear
+                        showSearch
+                        optionFilterProp="children"
+                        notFoundContent={this.state.loading ? <Spin size="small" /> : this._getEmptyText()}
+                        onSearch={(value) => this._onSearch(value)}
+                        onChange={(value) => this._onChange(value)}
+                        style={{ width: this.props.width }}
+                    >
+                        {this.state.data.map(d => <AntdSelect.Option key={d.value}>{d.text}</AntdSelect.Option>)}
+                        <AntdSelect.Option value="disabled" disabled>{this.state.loading ? <Spin size="small" style={{ paddingRight: "8px" }} /> : null}<Button size="small" icon="reload" onClick={() => this._onSearch()}>刷新</Button></AntdSelect.Option>
+                    </AntdSelect>
+                )}
+            </Form.Item>
         );
     }
 

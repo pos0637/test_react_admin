@@ -25,21 +25,32 @@ export default class ListView extends BaseComponent {
         sorter: true
     }]
 
+    /**
+     *
+     *
+     * @returns
+     * @memberof ListView
+     */
     render() {
         return (
             <div style={{ padding: 16, background: '#fff', minHeight: 360 }}>
                 <Form name="form1">
-                    <Input id="input1" type="password" label="密码" required placeholder="请输入密码" />
-                    <Button icon="search" onClick={() => console.log(this.getView().child('form1').getFieldsValue())}>查询</Button>
+                    <Input id="name" type="text" label="名称" placeholder="请输入名称" />
+                    <Select id="roleTypes" url="/api/v1/system/roleTypes" label="角色" placeholder="请选择角色" />
                 </Form>
-                <Form name="form2">
-                    <Input id="input2" type="password" label="密码" required placeholder="请输入密码" />
-                    <Button icon="search" onClick={() => console.log(this.getView().child('form1').getFieldsValue())}>查询</Button>
-                </Form>
-                <Select url="/api/v1/system/roleTypes" />
-                <Button icon="search">查询</Button>
-                <Table name="table1" url="/api/v1/system/roles" columns={this.columns} />
+                <Button name="btn_search" icon="search" onClick={() => this._onSearch()}>查询</Button>
+                <Table name="table1" url="/api/v1/system/roles" columns={this.columns} onLoadComplete={() => this._onLoadComplete()} />
             </div>
         );
+    }
+
+    _onSearch() {
+        const params = this.getView().child('form1').getFieldsValue();
+        console.log(params);
+        this.getView().child('table1').reload(params);
+    }
+
+    _onLoadComplete() {
+        this.getView().child('btn_search').complete();
     }
 }

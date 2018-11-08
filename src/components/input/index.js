@@ -12,18 +12,18 @@ import BaseComponent from '~/components/baseComponent';
  */
 export default class Input extends BaseComponent {
     static propTypes = {
-        id: PropTypes.string.isRequired,
-        url: PropTypes.string,
-        method: PropTypes.string,
-        params: PropTypes.object,
-        label: PropTypes.string,
-        hasFeedback: PropTypes.bool,
-        help: PropTypes.string,
-        required: PropTypes.bool,
-        requiredMessage: PropTypes.string,
-        rules: PropTypes.array,
-        validator: PropTypes.func,
-        initialValue: PropTypes.any
+        id: PropTypes.string.isRequired, // 索引
+        url: PropTypes.string, // 请求地址
+        method: PropTypes.string, // 请求方法
+        params: PropTypes.object, // 请求参数
+        label: PropTypes.string, // 标题
+        hasFeedback: PropTypes.bool, // 是否反馈
+        help: PropTypes.string, // 帮助内容
+        required: PropTypes.bool, // 是否必填
+        requiredMessage: PropTypes.string, // 必填提示信息 
+        rules: PropTypes.array, // 内容规则
+        validator: PropTypes.func, // 内容检查函数
+        initialValue: PropTypes.any // 初始值
     }
 
     static defaultProps = {
@@ -32,7 +32,7 @@ export default class Input extends BaseComponent {
         method: 'get',
         params: null,
         label: undefined,
-        hasFeedback: true,
+        hasFeedback: false,
         help: undefined,
         required: false,
         requiredMessage: undefined,

@@ -16,16 +16,17 @@ import './index.scss';
  */
 export default class Table extends BaseComponent {
     static propTypes = {
-        url: PropTypes.string.isRequired,
-        params: PropTypes.object,
-        columns: PropTypes.array.isRequired,
-        checkable: PropTypes.bool,
-        actionBar: PropTypes.bool,
-        actionBarWidth: PropTypes.number,
-        actionBarView: PropTypes.any,
-        onViewButtonClick: PropTypes.func,
-        onEditButtonClick: PropTypes.func,
-        onDeleteButtonClick: PropTypes.func
+        url: PropTypes.string.isRequired, // 请求地址
+        params: PropTypes.object, // 请求参数
+        columns: PropTypes.array.isRequired, // 列属性集合
+        checkable: PropTypes.bool, // 是否可以选中
+        actionBar: PropTypes.bool, // 是否显示操作列
+        actionBarWidth: PropTypes.number, // 操作列宽度
+        actionBarView: PropTypes.any, // 操作列视图
+        onLoadComplete: PropTypes.func, // 加载完成事件
+        onViewButtonClick: PropTypes.func, // 查看按钮点击事件
+        onEditButtonClick: PropTypes.func, // 编辑按钮点击事件
+        onDeleteButtonClick: PropTypes.func // 删除按钮点击事件
     }
 
     static defaultProps = {
@@ -36,6 +37,7 @@ export default class Table extends BaseComponent {
         actionBar: true,
         actionBarWidth: 260,
         actionBarView: undefined,
+        onLoadComplete: undefined,
         onViewButtonClick: undefined,
         onEditButtonClick: undefined,
         onDeleteButtonClick: undefined
@@ -54,6 +56,8 @@ export default class Table extends BaseComponent {
         loading: false
     }
 
+    params = this.props.params
+
     constructor(props) {
         super(props);
         this.selectedItems = [];
@@ -61,7 +65,7 @@ export default class Table extends BaseComponent {
 
     componentDidMount() {
         super.componentDidMount();
-        this._onTableChange(this.state.pagination);
+        this._onTableChange(this.params, this.state.pagination);
     }
 
     render() {
@@ -74,7 +78,7 @@ export default class Table extends BaseComponent {
                 loading={this.state.loading && { tip: intl.get('components.table.loading') }}
                 locale={{ emptyText: this._getEmptyText() }}
                 rowSelection={this.props.checkable ? { onChange: (selectedRowKeys, selectedRows) => this._onRowSelectionChange(selectedRowKeys, selectedRows) } : undefined}
-                onChange={(pagination, filters, sorter) => this._onTableChange(pagination, filters, sorter)}
+                onChange={(pagination, filters, sorter) => this._onTableChange(this.params, pagination, filters, sorter)}
             />
         );
     }
@@ -87,6 +91,20 @@ export default class Table extends BaseComponent {
      */
     getSelectedItems() {
         return this.selectedItems;
+    }
+
+    /**
+     * 重新加载
+     *
+     * @param {*} params 请求参数
+     * @memberof Table
+     */
+    reload(params) {
+        this.params = params;
+        this._onTableChange(this.params, {
+            current: 0,
+            pageSize: this.state.pagination.pageSize
+        });
     }
 
     /**
@@ -124,7 +142,7 @@ export default class Table extends BaseComponent {
         return (
             <div>
                 <span className="empty_text">{intl.get('components.table.empty_text')}</span>
-                <Button size="small" icon="reload" onClick={() => this._onTableChange(this.state.pagination)}>{intl.get('components.table.reload')}</Button>
+                <Button size="small" icon="reload" onClick={() => this._onTableChange(this.params, this.state.pagination)}>{intl.get('components.table.reload')}</Button>
             </div>
         );
     }
@@ -191,12 +209,22 @@ export default class Table extends BaseComponent {
     /**
      * 表格属性改变事件处理函数
      *
+     * @param {*} params 请求参数
      * @param {*} pagination 分页
      * @param {*} filters 过滤条件
      * @param {*} sorter 排序
      * @memberof Table
      */
-    _onTableChange(pagination, filters = {}, sorter = null) {
+    /**
+     *
+     *
+     * @param {*} params
+     * @param {*} pagination
+     * @param {*} [filters={}]
+     * @param {*} [sorter=null]
+     * @memberof Table
+     */
+    _onTableChange(params, pagination, filters = {}, sorter = null) {
         const pager = {
             ...this.state.pagination,
             current: pagination.current,
@@ -208,9 +236,9 @@ export default class Table extends BaseComponent {
         });
 
         const parameters = {
-            ...this.props.params,
-            results: pagination.pageSize,
+            ...params,
             page: pagination.current,
+            results: pagination.pageSize,
             ...filters
         };
 
@@ -220,11 +248,13 @@ export default class Table extends BaseComponent {
         }
 
         request(this.props.url, 'get', parameters, data => {
+            this.props.onLoadComplete && this.props.onLoadComplete(data);
             this.setState({
                 data: data,
                 loading: false
             });
         }, () => {
+            this.props.onLoadComplete && this.props.onLoadComplete();
             this.setState({
                 data: [],
                 loading: false

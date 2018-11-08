@@ -13,13 +13,13 @@ import { request } from '~/components/request';
  */
 export default class Button extends BaseComponent {
     static propTypes = {
-        url: PropTypes.string,
-        method: PropTypes.string,
-        params: PropTypes.object,
-        resolve: PropTypes.func,
-        reject: PropTypes.func,
-        onClick: PropTypes.func,
-        waitForComplete: PropTypes.bool
+        url: PropTypes.string, // 请求地址
+        method: PropTypes.string, // 请求方法
+        params: PropTypes.object, // 请求参数
+        resolve: PropTypes.func, // 请求成功事件处理函数
+        reject: PropTypes.func, // 请求失败事件处理函数
+        onClick: PropTypes.func, // 点击事件处理函数
+        waitForComplete: PropTypes.bool // 是否等待处理完成
     }
 
     static defaultProps = {
@@ -43,6 +43,15 @@ export default class Button extends BaseComponent {
     }
 
     /**
+     * 处理完成
+     *
+     * @memberof Button
+     */
+    complete() {
+        this.setState({ loading: false });
+    }
+
+    /**
      * 点击事件处理函数
      *
      * @memberof Button
@@ -60,6 +69,6 @@ export default class Button extends BaseComponent {
         }, error => {
             this.setState({ loading: false });
             this.props.reject && this.props.reject(error);
-        })
+        });
     }
 }
